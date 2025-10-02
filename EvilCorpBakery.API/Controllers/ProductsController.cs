@@ -40,7 +40,7 @@ namespace EvilCorpBakery.API.Controllers
             return NoContent();
         }
 
-        [Authorize(Roles ="Admin")]
+        //[Authorize(Roles ="User")]
         [HttpGet("all")]
         public async Task<IActionResult> GetProducts()
         {

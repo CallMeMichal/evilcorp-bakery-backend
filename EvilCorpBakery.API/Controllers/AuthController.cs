@@ -1,6 +1,7 @@
 ﻿using EvilCorpBakery.API.Features.Auth.CreateUser;
 using EvilCorpBakery.API.Features.Auth.LoginUser;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace EvilCorpBakery.API.Controllers
@@ -16,19 +17,30 @@ namespace EvilCorpBakery.API.Controllers
             _sender = sender;
         }
 
+        [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromForm]LoginUserCommand command)
+        public async Task<IActionResult> Login([FromForm] LoginUserCommand command)
         {
             var token = await _sender.Send(command);
 
             return Ok(token);
         }
 
+        [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<IActionResult> Register(CreateUserCommand command)
+        public async Task<IActionResult> Register([FromForm] CreateUserCommand command)
         {
-            var token = await _sender.Send(command);
-            return Ok(token);
+            var result = await _sender.Send(command);
+            return Ok(result);
         }
+
+/*        [AllowAnonymous]
+        [HttpPost("register/confirmation")]
+        public async Task<IActionResult> RegisterConfirmation([FromForm] int numbers)
+        {
+            var result = await _sender.Send(numbers);
+            return Ok(result);
+        }*/
+
     }
 }
