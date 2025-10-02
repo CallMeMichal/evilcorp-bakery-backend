@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EvilCorpBakery.API.Features.Auth.CreateUser
 {
-    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, string>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
     {
         private readonly EvliCorpBakeryAppDbContext _context;
 
@@ -16,7 +16,7 @@ namespace EvilCorpBakery.API.Features.Auth.CreateUser
             _context = context;
         }
 
-        async Task<string> IRequestHandler<CreateUserCommand, string>.Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        async Task<bool> IRequestHandler<CreateUserCommand, bool>.Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);
@@ -39,9 +39,9 @@ namespace EvilCorpBakery.API.Features.Auth.CreateUser
             await _context.Users.AddAsync(user, cancellationToken);
             await _context.SaveChangesAsync(cancellationToken);
 
-            var token = JwtTokenGenerator.GenerateToken(user);
+            //var token = JwtTokenGenerator.GenerateToken(user);
 
-            return token;
+            return true;
         }
     }
 }
