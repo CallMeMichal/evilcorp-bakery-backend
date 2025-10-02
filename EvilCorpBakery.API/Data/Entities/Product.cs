@@ -9,5 +9,6 @@
         public int Stock { get; set; }
         public string ImageUrl { get; set; } = string.Empty;
         public int CategoryId { get; set; }
+        public virtual Category Category { get; set; } = null!;
     }
 }
