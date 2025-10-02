@@ -9,7 +9,7 @@ namespace EvilCorpBakery.API.Extensions
 {
     public static class JwtTokenGenerator
     {
-        // ✅ Stały klucz - ten sam co w middleware
+
         private const string JWT_SECRET = "super-tajny-klucz-evilcorp-bakery-2024-minimum-32-znaki";
         private const string JWT_ISSUER = "EvilCorpBakery";
         private const string JWT_AUDIENCE = "https://evilcorpbakery.com";
@@ -36,7 +36,7 @@ namespace EvilCorpBakery.API.Extensions
                 new Claim(JwtRegisteredClaimNames.GivenName, user.Name),
                 new Claim(JwtRegisteredClaimNames.FamilyName, user.Surname),
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(ClaimTypes.Role, user.Role),
+                new Claim("role", user.Role),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 

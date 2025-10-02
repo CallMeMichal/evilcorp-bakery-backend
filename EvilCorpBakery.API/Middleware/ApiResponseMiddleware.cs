@@ -73,12 +73,6 @@ namespace EvilCorpBakery.API.Middleware
             return pathsToSkip.Any(skipPath => path.StartsWithSegments(skipPath, StringComparison.OrdinalIgnoreCase));
         }
 
-        private static bool IsJsonResponse(string? contentType)
-        {
-            return !string.IsNullOrEmpty(contentType) &&
-                   contentType.Contains("application/json", StringComparison.OrdinalIgnoreCase);
-        }
-
         private async Task HandleSuccessResponse(HttpContext context, Stream originalBodyStream)
         {
             try
@@ -166,7 +160,6 @@ namespace EvilCorpBakery.API.Middleware
             {
                 _logger.LogError(writeEx, "Error occurred while writing error response");
 
-                // Last resort fallback
                 try
                 {
                     context.Response.StatusCode = 500;
@@ -175,7 +168,7 @@ namespace EvilCorpBakery.API.Middleware
                 }
                 catch
                 {
-                    // Jeśli nawet to się nie uda, nie rób nic więcej
+                    //todo
                 }
             }
         }

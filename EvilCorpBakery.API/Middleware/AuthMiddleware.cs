@@ -18,16 +18,13 @@ namespace EvilCorpBakery.API.Middleware
             var endpoint = context.GetEndpoint();
             var authorizeAttribute = endpoint?.Metadata.GetMetadata<AuthorizeAttribute>();
 
-            // Sprawdź czy endpoint wymaga autoryzacji
             if (authorizeAttribute != null)
             {
-                // Czy użytkownik NIE jest zalogowany?
                 if (context.User.Identity?.IsAuthenticated != true)
                 {
                     throw new TokenExpiredException(); // 401
                 }
 
-                // Czy endpoint wymaga konkretnej roli?
                 if (!string.IsNullOrEmpty(authorizeAttribute.Roles))
                 {
                     var requiredRoles = authorizeAttribute.Roles.Split(',')
