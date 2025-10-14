@@ -9,9 +9,9 @@ namespace EvilCorpBakery.API.Features.Products.GetProducts
 {
     public class GetProductsQueryHandler : IRequestHandler<GetProductsQuery, List<ProductDTO>>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public GetProductsQueryHandler(EvliCorpBakeryAppDbContext context)
+        public GetProductsQueryHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }
@@ -23,6 +23,11 @@ namespace EvilCorpBakery.API.Features.Products.GetProducts
 
             foreach (var product in products)
             {
+                var productCategoryName = await _context.Categories.Where(x => x.Id == product.CategoryId).Select(x => x.Name).FirstOrDefaultAsync();
+                if(productCategoryName == null)
+                { 
+                    productCategoryName = "undefined";
+                }
                 var productDTO = new ProductDTO
                 {
                     Id = product.Id,
@@ -30,6 +35,7 @@ namespace EvilCorpBakery.API.Features.Products.GetProducts
                     Description = product.Description,
                     Price = product.Price,
                     Stock = product.Stock,
+                    Category = productCategoryName,
                     Base64Image = string.Empty
                 };
 

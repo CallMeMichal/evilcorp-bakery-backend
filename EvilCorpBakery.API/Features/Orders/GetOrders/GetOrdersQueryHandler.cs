@@ -10,9 +10,9 @@ namespace EvilCorpBakery.API.Features.Orders.GetOrders
 {
     public class GetOrdersQueryHandler : IRequestHandler<GetOrdersQuery, List<OrderDto>>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public GetOrdersQueryHandler(EvliCorpBakeryAppDbContext context)
+        public GetOrdersQueryHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }
@@ -60,10 +60,14 @@ namespace EvilCorpBakery.API.Features.Orders.GetOrders
                     });
                 }
 
+                var orderStatus = await _context.OrderStatuses.Where(x=>x.Id == order.StatusId).FirstOrDefaultAsync(cancellationToken);
+
                 orderDtos.Add(new OrderDto
                 {
                     Id = order.Id,
                     TotalAmount = order.TotalAmount,
+                    OrderGuid = order.OrderGuid,
+                    Status = orderStatus != null ? orderStatus.Name : "Unknown",
                     Notes = order.Notes ?? string.Empty,
                     CreatedAt = order.CreatedAt,
                     UpdatedAt = order.UpdatedAt,

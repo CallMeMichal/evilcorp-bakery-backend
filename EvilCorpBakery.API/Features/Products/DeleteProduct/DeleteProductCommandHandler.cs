@@ -7,9 +7,9 @@ namespace EvilCorpBakery.API.Features.Products.DeleteProduct
 {
     public class DeleteProductCommandHandler : IRequestHandler<DeleteProductCommand, int>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public DeleteProductCommandHandler(EvliCorpBakeryAppDbContext context)
+        public DeleteProductCommandHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

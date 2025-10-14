@@ -9,9 +9,9 @@ namespace EvilCorpBakery.API.Features.Auth.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public CreateUserCommandHandler(EvliCorpBakeryAppDbContext context)
+        public CreateUserCommandHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }
@@ -32,7 +32,6 @@ namespace EvilCorpBakery.API.Features.Auth.CreateUser
                 Password = request.Password,
                 Name = request.Name,
                 Surname = request.Surname,
-                PhoneNumber = request.PhoneNumber,
                 DateOfBirth = request.DateOfBirth,
             };
 

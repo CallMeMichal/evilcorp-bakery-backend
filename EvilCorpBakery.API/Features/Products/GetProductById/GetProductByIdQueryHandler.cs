@@ -10,9 +10,9 @@ namespace EvilCorpBakery.API.Features.Products.GetProductById
 {
     public class GetProductByIdQueryHandler : IRequestHandler<GetProductByIdQuery, ProductDTO>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public GetProductByIdQueryHandler(EvliCorpBakeryAppDbContext context)
+        public GetProductByIdQueryHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }
@@ -25,7 +25,16 @@ namespace EvilCorpBakery.API.Features.Products.GetProductById
             {
                 throw new NotFoundException();
             }
-            
+
+            var productCategoryId = product.CategoryId;
+
+            var productCategoryName = await _context.Categories.Where(x => x.Id == product.CategoryId).Select(x => x.Name).FirstOrDefaultAsync();
+
+            if(productCategoryName == null)
+            {
+                productCategoryName = "undefined";
+            }
+
             ProductDTO productDTO = new ProductDTO
             {
                 Id = product.Id,
@@ -33,6 +42,7 @@ namespace EvilCorpBakery.API.Features.Products.GetProductById
                 Description = product.Description,
                 Price = product.Price,
                 Stock = product.Stock,
+                Category = productCategoryName,
                 Base64Image = await PhotoConverter.ConvertImageToBase64Async(product.ImageUrl)
             };
 

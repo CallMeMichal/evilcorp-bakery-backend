@@ -13,11 +13,11 @@ namespace EvilCorpBakery.API.Controllers
 {
     [Route("api/v1/product")]
     [ApiController]
-    public class ProductsController : Controller
+    public class ProductController : Controller
     {
         private readonly ISender _sender;
 
-        public ProductsController(ISender sender)
+        public ProductController(ISender sender)
         {
             _sender = sender;
         }

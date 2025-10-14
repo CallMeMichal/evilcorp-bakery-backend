@@ -17,9 +17,13 @@ namespace EvilCorpBakery.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-
+            ConfigurationManager menager = builder.Configuration;
+            var co = menager.GetConnectionString("DefaultConnection");
             builder.Services.AddControllers();
-            builder.Services.AddDbContext<EvliCorpBakeryAppDbContext>(options => options.UseInMemoryDatabase("EvilCorpBakery"));
+            builder.Services.AddDbContext<EvilCorpBakeryAppDbContext>(options => options.UseSqlServer(menager.GetConnectionString("DefaultConnection")));
+            //builder.Services.AddDbContext<EvilCorpBakeryAppDbContext>(options => options.UseInMemoryDatabase("Bakery"));
+
+
             builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
             //builder.Services.AddProblemDetails(); // dodane
 
@@ -60,13 +64,11 @@ namespace EvilCorpBakery.API
 
             using (var scope = app.Services.CreateScope())
             {
-                var context = scope.ServiceProvider.GetRequiredService<EvliCorpBakeryAppDbContext>();
+                var context = scope.ServiceProvider.GetRequiredService<EvilCorpBakeryAppDbContext>();
                 DatabaseInitializer.Initialize(context);
             }
 
-            //app.UseExceptionHandler(); //dodane
-            //app.UseStatusCodePages(); //doddane
-            // Configure the HTTP request pipeline.
+
             if (app.Environment.IsDevelopment())
             {
                 app.MapOpenApi();

@@ -9,9 +9,9 @@ namespace EvilCorpBakery.API.Features.Products.GetProductSuggestions
 {
     public class GetProductSuggestionsQueryHandler : IRequestHandler<GetProductSuggestionsQuery, List<ProductDTO>>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public GetProductSuggestionsQueryHandler(EvliCorpBakeryAppDbContext context)
+        public GetProductSuggestionsQueryHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

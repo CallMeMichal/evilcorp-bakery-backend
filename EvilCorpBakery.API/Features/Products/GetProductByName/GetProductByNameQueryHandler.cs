@@ -8,9 +8,9 @@ namespace EvilCorpBakery.API.Features.Products.GetProductByName
 {
     public class GetProductByNameQueryHandler : IRequestHandler<GetProductByNameQuery, Product>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public GetProductByNameQueryHandler(EvliCorpBakeryAppDbContext context)
+        public GetProductByNameQueryHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

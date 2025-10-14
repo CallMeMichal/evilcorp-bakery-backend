@@ -1,6 +1,8 @@
-﻿using EvilCorpBakery.API.Features.Orders.GetOrders;
+﻿using EvilCorpBakery.API.Features.Orders.CreateOrder;
+using EvilCorpBakery.API.Features.Orders.GetOrders;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace EvilCorpBakery.API.Controllers
@@ -28,6 +30,14 @@ namespace EvilCorpBakery.API.Controllers
         public async Task<IActionResult> GetOrdersByUserId([FromRoute] GetOrdersQuery query)
         {
             var result = await _sender.Send(query);
+
+            return Ok(result);
+        }
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateOrder([FromBody] CreateOrderCommand command)
+        {
+            var result = await _sender.Send(command);
 
             return Ok(result);
         }

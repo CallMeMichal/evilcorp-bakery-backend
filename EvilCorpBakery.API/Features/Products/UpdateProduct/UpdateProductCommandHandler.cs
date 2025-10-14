@@ -6,9 +6,9 @@ namespace EvilCorpBakery.API.Features.Products.UpdateProduct
 {
     public class UpdateProductCommandHandler : IRequestHandler<UpdateProductCommand, int>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public UpdateProductCommandHandler(EvliCorpBakeryAppDbContext context)
+        public UpdateProductCommandHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

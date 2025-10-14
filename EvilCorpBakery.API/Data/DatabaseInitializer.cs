@@ -5,9 +5,10 @@ namespace EvilCorpBakery.API.Data
 {
     public static class DatabaseInitializer
     {
-        public static void Initialize(EvliCorpBakeryAppDbContext context)
+        public static void Initialize(EvilCorpBakeryAppDbContext context)
         {
             // Ensure the database is created
+            //context.Database.EnsureDeleted();  // Usuń
             context.Database.EnsureCreated();
 
             // Check if data already exists
@@ -27,6 +28,34 @@ namespace EvilCorpBakery.API.Data
             };
             context.Categories.AddRange(categories);
             context.SaveChanges();
+
+
+            var paymentTypes = new PaymentTypes[]
+            {
+                new PaymentTypes { Name = "BLIK" },
+                new PaymentTypes { Name = "Credit Card" },
+                new PaymentTypes { Name = "PayPal" },
+                new PaymentTypes { Name = "Apple Pay" },
+                new PaymentTypes { Name = "Google Pay" },
+                new PaymentTypes { Name = "Cash on Pickup" }
+            };
+
+            context.PaymentTypes.AddRange(paymentTypes);
+            context.SaveChanges();
+
+
+            var orderStatuses = new OrderStatus[]
+            {
+                new OrderStatus { Name = "Pending", Description = "Order received, awaiting processing" },
+                new OrderStatus { Name = "Processing", Description  = "Order is being prepared" },
+                new OrderStatus { Name = "Shipped", Description = "Order has been shipped" },
+                new OrderStatus { Name = "Completed", Description = "Order completed successfully" },
+                new OrderStatus { Name = "Cancelled", Description = "Order was cancelled" }
+            };
+
+            context.OrderStatuses.AddRange(orderStatuses);
+            context.SaveChanges();
+
 
             // 2. Seed Products
             var products = new Product[]
@@ -135,7 +164,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "Admin",
                     Name = "System",
                     Surname = "Administrator",
-                    PhoneNumber = "+48123456789",
                     DateOfBirth = new DateTime(1990, 1, 1)
                 },
                 new User
@@ -145,7 +173,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "Admin",
                     Name = "Jane",
                     Surname = "Smith",
-                    PhoneNumber = "+48987654321",
                     DateOfBirth = new DateTime(1985, 3, 15)
                 },
                 new User
@@ -155,7 +182,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "User",
                     Name = "John",
                     Surname = "Doe",
-                    PhoneNumber = "+48111222333",
                     DateOfBirth = new DateTime(1992, 7, 22)
                 },
                 new User
@@ -165,7 +191,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "User",
                     Name = "Jan",
                     Surname = "Kowalski",
-                    PhoneNumber = "+48555666777",
                     DateOfBirth = new DateTime(1995, 5, 10)
                 },
                 new User
@@ -175,7 +200,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "User",
                     Name = "Alice",
                     Surname = "Johnson",
-                    PhoneNumber = "+48444555666",
                     DateOfBirth = new DateTime(1988, 11, 10)
                 },
                 new User
@@ -185,7 +209,6 @@ namespace EvilCorpBakery.API.Data
                     Role = "User",
                     Name = "Bob",
                     Surname = "Wilson",
-                    PhoneNumber = "+48777888999",
                     DateOfBirth = new DateTime(1995, 5, 3)
                 }
             };
@@ -203,7 +226,9 @@ namespace EvilCorpBakery.API.Data
                     City = "Warszawa",
                     PostalCode = "00-001",
                     Country = "Poland",
+                    PhoneAreaCode = "+48",
                     IsDefault = true,
+                    PhoneNumber = "123456789",
                     Label = "Home"
                 },
                 new Address
@@ -213,7 +238,9 @@ namespace EvilCorpBakery.API.Data
                     City = "Warszawa",
                     PostalCode = "00-002",
                     Country = "Poland",
+                    PhoneAreaCode = "+48",
                     IsDefault = false,
+                    PhoneNumber = "123456789",
                     Label = "Work"
                 },
                 // Addresses for Jan Kowalski (UserId = 4)
@@ -224,8 +251,10 @@ namespace EvilCorpBakery.API.Data
                     City = "Kraków",
                     PostalCode = "30-001",
                     Country = "Poland",
+                    PhoneAreaCode = "+48",
                     IsDefault = true,
-                    Label = "Home"
+                    Label = "Home",
+                    PhoneNumber = "987654321",
                 },
                 // Addresses for Alice Johnson (UserId = 5)
                 new Address
@@ -235,8 +264,10 @@ namespace EvilCorpBakery.API.Data
                     City = "Łódź",
                     PostalCode = "90-001",
                     Country = "Poland",
+                    PhoneAreaCode = "+48",
                     IsDefault = true,
-                    Label = "Home"
+                    Label = "Home",
+                    PhoneNumber = "555123456"
                 },
                 // Addresses for Bob Wilson (UserId = 6)
                 new Address
@@ -246,7 +277,9 @@ namespace EvilCorpBakery.API.Data
                     City = "Gdańsk",
                     PostalCode = "80-001",
                     Country = "Poland",
+                    PhoneAreaCode = "+48",
                     IsDefault = true,
+                    PhoneNumber = "666777888",
                     Label = "Home"
                 }
             };
@@ -254,14 +287,16 @@ namespace EvilCorpBakery.API.Data
             context.SaveChanges();
 
             var orders = new Order[]
-            {
+{
                 // Order 1 - John Doe
                 new Order
                 {
                     UserId = 3,
+                    OrderGuid = "#ORD-2024-001",
                     AddressId = 1, // John's home address
-                    Status = "Completed",
+                    StatusId = 5,
                     TotalAmount = 15.24m,
+                    PaymentMethod = 1,
                     Notes = "Please ring the doorbell twice",
                     CreatedAt = DateTime.UtcNow.AddDays(-10),
                     UpdatedAt = DateTime.UtcNow.AddDays(-9)
@@ -270,9 +305,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 3,
+                    OrderGuid = "#ORD-2024-002",
                     AddressId = 2, // John's work address
-                    Status = "Processing",
+                    StatusId = 2, // Processing
                     TotalAmount = 8.25m,
+                    PaymentMethod = 3,
                     Notes = "Delivery between 9-11 AM",
                     CreatedAt = DateTime.UtcNow.AddDays(-2),
                     UpdatedAt = DateTime.UtcNow.AddDays(-1)
@@ -281,9 +318,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 4,
+                    OrderGuid = "#ORD-2024-003",
                     AddressId = 3,
-                    Status = "Pending",
+                    StatusId = 4, 
                     TotalAmount = 22.48m,
+                    PaymentMethod = 3,
                     Notes = null,
                     CreatedAt = DateTime.UtcNow.AddHours(-5),
                     UpdatedAt = DateTime.UtcNow.AddHours(-5)
@@ -292,9 +331,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 5,
+                    OrderGuid = "#ORD-2024-004",
                     AddressId = 4,
-                    Status = "Completed",
+                    StatusId = 4,
                     TotalAmount = 19.99m,
+                    PaymentMethod = 5,
                     Notes = "Leave at the door",
                     CreatedAt = DateTime.UtcNow.AddDays(-15),
                     UpdatedAt = DateTime.UtcNow.AddDays(-14)
@@ -303,9 +344,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 6,
+                    OrderGuid = "#ORD-2024-005",
                     AddressId = 5,
-                    Status = "Cancelled",
+                    StatusId = 5,
                     TotalAmount = 12.99m,
+                    PaymentMethod = 3,
                     Notes = "Changed my mind",
                     CreatedAt = DateTime.UtcNow.AddDays(-7),
                     UpdatedAt = DateTime.UtcNow.AddDays(-6)
@@ -314,9 +357,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 3,
+                    OrderGuid = "#ORD-2024-006",
                     AddressId = 1, // John's home address
-                    Status = "Completed",
+                    StatusId = 3,
                     TotalAmount = 18.48m,
+                    PaymentMethod = 2,
                     Notes = "Call when arriving",
                     CreatedAt = DateTime.UtcNow.AddDays(-20),
                     UpdatedAt = DateTime.UtcNow.AddDays(-19)
@@ -325,9 +370,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 3,
+                    OrderGuid = "#ORD-2024-007",
                     AddressId = 1, // John's home address
-                    Status = "Shipped",
+                    StatusId = 1,
                     TotalAmount = 13.00m,
+                    PaymentMethod = 1,
                     Notes = null,
                     CreatedAt = DateTime.UtcNow.AddDays(-5),
                     UpdatedAt = DateTime.UtcNow.AddDays(-4)
@@ -336,9 +383,11 @@ namespace EvilCorpBakery.API.Data
                 new Order
                 {
                     UserId = 3,
+                    OrderGuid = "#ORD-2024-008",
                     AddressId = 2, // John's work address
-                    Status = "Completed",
+                    StatusId = 3,
                     TotalAmount = 7.49m,
+                    PaymentMethod = 1,
                     Notes = "Urgent delivery",
                     CreatedAt = DateTime.UtcNow.AddDays(-30),
                     UpdatedAt = DateTime.UtcNow.AddDays(-29)

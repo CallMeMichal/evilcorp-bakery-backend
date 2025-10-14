@@ -11,13 +11,10 @@
         public string City { get; set; } = string.Empty;
         public string PostalCode { get; set; } = string.Empty;
         public string Country { get; set; } = string.Empty;
-
-        // Opcjonalnie - czy jest to domyślny adres
         public bool IsDefault { get; set; } = false;
-
-        // Opcjonalnie - etykieta (np. "Dom", "Praca")
         public string? Label { get; set; }
-
+        public string PhoneAreaCode { get; set; } = string.Empty;
+        public string PhoneNumber { get; set; } = string.Empty;
         public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
     
         public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;

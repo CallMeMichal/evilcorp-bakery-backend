@@ -6,9 +6,9 @@ namespace EvilCorpBakery.API.Features.Auth.LoginUser
 {
     public class LoginUserCommandHandler : IRequestHandler<LoginUserCommand, List<string>>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public LoginUserCommandHandler(EvliCorpBakeryAppDbContext context)
+        public LoginUserCommandHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

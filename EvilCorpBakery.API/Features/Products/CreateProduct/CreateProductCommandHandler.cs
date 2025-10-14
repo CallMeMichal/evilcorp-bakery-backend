@@ -6,9 +6,9 @@ namespace EvilCorpBakery.API.Features.Products.CreateProduct
 {
     public class CreateProductCommandHandler : IRequestHandler<CreateProductCommand, int>
     {
-        private readonly EvliCorpBakeryAppDbContext _context;
+        private readonly EvilCorpBakeryAppDbContext _context;
 
-        public CreateProductCommandHandler(EvliCorpBakeryAppDbContext context)
+        public CreateProductCommandHandler(EvilCorpBakeryAppDbContext context)
         {
             _context = context;
         }

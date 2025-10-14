@@ -1,4 +1,5 @@
 ﻿using EvilCorpBakery.API.Features.Auth.CreateUser;
+using EvilCorpBakery.API.Features.Auth.GetUserJoinDate;
 using EvilCorpBakery.API.Features.Auth.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
@@ -33,14 +34,24 @@ namespace EvilCorpBakery.API.Controllers
             var result = await _sender.Send(command);
             return Ok(result);
         }
-
-/*        [AllowAnonymous]
-        [HttpPost("register/confirmation")]
-        public async Task<IActionResult> RegisterConfirmation([FromForm] int numbers)
+        [Authorize]
+        [HttpGet("{id}/joindate")]
+        public async Task<IActionResult> GetUserJoinDate([FromRoute] int id)
         {
-            var result = await _sender.Send(numbers);
+            var query = new GetUserJoinDateQuery(id);
+            var result = await _sender.Send(query);
             return Ok(result);
-        }*/
+        }
+
+
+
+        /*        [AllowAnonymous]
+                [HttpPost("register/confirmation")]
+                public async Task<IActionResult> RegisterConfirmation([FromForm] int numbers)
+                {
+                    var result = await _sender.Send(numbers);
+                    return Ok(result);
+                }*/
 
     }
 }
