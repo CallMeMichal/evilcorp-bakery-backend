@@ -34,14 +34,7 @@ namespace EvilCorpBakery.API.Controllers
             var result = await _sender.Send(command);
             return Ok(result);
         }
-        [Authorize]
-        [HttpGet("{id}/joindate")]
-        public async Task<IActionResult> GetUserJoinDate([FromRoute] int id)
-        {
-            var query = new GetUserJoinDateQuery(id);
-            var result = await _sender.Send(query);
-            return Ok(result);
-        }
+
 
 
 

@@ -26,7 +26,7 @@ namespace EvilCorpBakery.API.Features.Auth.CreateUser
                 throw new Exception("User already registered");
             }
 
-            var user = new User
+            var user = new Data.Entities.User
             {
                 Email = request.Email,
                 Password = request.Password,
