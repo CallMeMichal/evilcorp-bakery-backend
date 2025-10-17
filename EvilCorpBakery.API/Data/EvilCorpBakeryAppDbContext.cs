@@ -82,6 +82,12 @@ namespace EvilCorpBakery.API.Data
                 .HasForeignKey(p => p.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<Product>()
+                .HasMany(p => p.Photos)
+                .WithOne(ph => ph.Product)
+                .HasForeignKey(ph => ph.ProductId)
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Product -> OrderItems (Restrict - nie można usunąć produktu z zamówień)
             modelBuilder.Entity<OrderItem>()
                 .HasOne(oi => oi.Product)

@@ -1,5 +1,5 @@
-﻿using EvilCorpBakery.API.Features.Orders.CreateOrder;
-using EvilCorpBakery.API.Features.Orders.GetOrders;
+﻿using EvilCorpBakery.API.Features.Orders.Command.CreateOrder;
+using EvilCorpBakery.API.Features.Orders.Queries.GetOrders;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory;

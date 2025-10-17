@@ -4,7 +4,8 @@
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
-        public string CreatedAt { get; set; } = DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss");
+        public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+        public bool isActive { get; set; } = true;
         public virtual ICollection<Product> Products { get; set; } = new List<Product>();
     }
 }

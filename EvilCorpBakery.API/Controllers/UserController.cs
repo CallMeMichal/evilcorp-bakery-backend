@@ -1,4 +1,6 @@
 ﻿using EvilCorpBakery.API.Features.Auth.GetUserJoinDate;
+using EvilCorpBakery.API.Features.User.UpdateUser;
+using EvilCorpBakery.API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +45,18 @@ namespace EvilCorpBakery.API.Controllers
             var result = await _sender.Send(command);
             return Ok(result);
         }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPut("update/{id}")]
+        public async Task<IActionResult> UpdateUser([FromRoute] int id, [FromBody] UserDTO userDto)
+        {
+            var command = new UpdateUserCommand(id, userDto);
+            var result = await _sender.Send(command);
+
+            return Ok(new { success = true, data = result });
+        }
+
 
     }
 }

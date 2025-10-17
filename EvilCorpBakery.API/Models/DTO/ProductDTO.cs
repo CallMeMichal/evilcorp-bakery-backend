@@ -8,6 +8,6 @@
         public string Category { get; set; } = string.Empty;
         public decimal Price { get; set; }
         public int Stock { get; set; }
-        public string Base64Image { get; set; } = string.Empty;
+        public List<ProductPhotosDTO> Photos { get; set; } = new List<ProductPhotosDTO>();
     }
 }

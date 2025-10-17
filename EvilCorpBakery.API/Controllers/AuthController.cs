@@ -1,6 +1,6 @@
-﻿using EvilCorpBakery.API.Features.Auth.CreateUser;
+﻿using EvilCorpBakery.API.Features.Auth.Command.CreateUser;
+using EvilCorpBakery.API.Features.Auth.Command.LoginUser;
 using EvilCorpBakery.API.Features.Auth.GetUserJoinDate;
-using EvilCorpBakery.API.Features.Auth.LoginUser;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;

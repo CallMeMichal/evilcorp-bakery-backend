@@ -1,10 +1,15 @@
-﻿using EvilCorpBakery.API.Features.Products.CreateProduct;
-using EvilCorpBakery.API.Features.Products.DeleteProduct;
-using EvilCorpBakery.API.Features.Products.GetProductById;
+﻿using EvilCorpBakery.API.Features.Category.CreateCategory;
+using EvilCorpBakery.API.Features.Category.DeleteCategory;
+using EvilCorpBakery.API.Features.Category.GetCategory;
+using EvilCorpBakery.API.Features.Category.GetVisibleCategory;
+using EvilCorpBakery.API.Features.Category.SetVisibleCategory;
+using EvilCorpBakery.API.Features.Products.Command.CreateProduct;
+using EvilCorpBakery.API.Features.Products.Command.DeleteProduct;
+using EvilCorpBakery.API.Features.Products.Command.UpdateProduct;
 using EvilCorpBakery.API.Features.Products.GetProductByName;
 using EvilCorpBakery.API.Features.Products.GetProducts;
 using EvilCorpBakery.API.Features.Products.GetProductSuggestions;
-using EvilCorpBakery.API.Features.Products.UpdateProduct;
+using EvilCorpBakery.API.Features.Products.Queries.GetProductById;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -26,9 +31,9 @@ namespace EvilCorpBakery.API.Controllers
         [HttpPost("create")]
         public async Task<IActionResult> CreateProduct(CreateProductCommand command)
         {
-            var playerId = await _sender.Send(command);
+            var result = await _sender.Send(command);
 
-            return Ok(playerId);
+            return Ok(result);
         }
 
 
@@ -41,6 +46,16 @@ namespace EvilCorpBakery.API.Controllers
         }
 
         //[Authorize(Roles ="User")]
+        [HttpGet("all/visible")]
+        public async Task<IActionResult> GetVisibleProducts()
+        {
+
+            var query = new GetVisibleProductsQuery();
+            var products = await _sender.Send(query);
+
+            return Ok(products);
+        }
+
         [HttpGet("all")]
         public async Task<IActionResult> GetProducts()
         {
@@ -49,7 +64,7 @@ namespace EvilCorpBakery.API.Controllers
             var products = await _sender.Send(query);
 
             return Ok(products);
-        }
+         }
 
         [HttpGet("specified/{id}")]
         public async Task<IActionResult> GetProductById([FromRoute] GetProductByIdQuery query)
@@ -69,22 +84,6 @@ namespace EvilCorpBakery.API.Controllers
             return NoContent();
         }
 
-        /*[HttpGet("search")]
-        public async Task<IActionResult> Search([FromQuery] string query)
-        {
-            if (string.IsNullOrWhiteSpace(query))
-            {
-                var allProductsQuery = new GetProductsQuery();
-                var allProducts = await _sender.Send(allProductsQuery);
-                return Ok(allProducts);
-            }
-
-            GetProductByNameQuery getProductByNameQuery = new(query);
-            var product = await _sender.Send(getProductByNameQuery);
-
-            return Ok(product);
-        }*/
-
         [HttpGet("suggestions")]
         public async Task<IActionResult> GetProductSuggestions([FromQuery] string query)
         {
@@ -100,5 +99,55 @@ namespace EvilCorpBakery.API.Controllers
             return Ok(suggestions);
         }
 
+        [Authorize(Roles = "Admin")]
+        [HttpPost("create/category")]
+        public async Task<IActionResult> CreateCategory([FromQuery] string query)
+        {
+
+            var command = new CreateCategoryCommand(query);
+            var suggestions = await _sender.Send(command);
+            return Ok(suggestions);
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("invisible/category/{id}")]
+        public async Task<IActionResult> SetInvisibleCategory([FromRoute] int id)
+        {
+            var command = new SetInvisibleCategoryCommand(id);
+            var suggestions = await _sender.Send(command);
+            return Ok(suggestions);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("visible/category/{id}")]
+        public async Task<IActionResult> SetVisibleCategory([FromRoute] int id)
+        {
+            var command = new SetVisibleCategoryCommand(id);
+            var suggestions = await _sender.Send(command);
+            return Ok(suggestions);
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("category/admin/all")]
+        public async Task<IActionResult> GetAllCategoryAdmin()
+        { 
+
+            var query = new GetCategoryQuery();
+            var products = await _sender.Send(query);
+
+            return Ok(products);
+        }
+
+        
+        [HttpGet("category/user/all")]
+        public async Task<IActionResult> GetVisibleCategory()
+        {
+
+              var query = new GetVisibleCategoryQuery();
+            var products = await _sender.Send(query);
+
+            return Ok(products);
+        }
     }
 }

@@ -66,8 +66,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 3.50m,
                     Description = "Flaky croissant filled with rich chocolate.",
                     Stock = 25,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o1.png",
-                    CategoryId = 2 // Pastries
+                    CategoryId = 2, // Pastries
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o1.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -75,8 +82,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 5.99m,
                     Description = "Artisan sourdough bread with a crispy crust.",
                     Stock = 15,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o2.png",
-                    CategoryId = 1 // Bread
+                    CategoryId = 1, // Bread
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o2.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -84,8 +98,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 2.75m,
                     Description = "Moist muffin bursting with fresh blueberries.",
                     Stock = 30,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o3.png",
-                    CategoryId = 5 // Muffins
+                    CategoryId = 5, // Muffins
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o3.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -93,8 +114,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 12.99m,
                     Description = "Classic apple pie with a buttery crust.",
                     Stock = 8,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o4.png",
-                    CategoryId = 3 // Cakes
+                    CategoryId = 3, // Cakes
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o4.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -102,8 +130,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 4.25m,
                     Description = "Soft roll swirled with cinnamon and topped with icing.",
                     Stock = 20,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o5.png",
-                    CategoryId = 2 // Pastries
+                    CategoryId = 2, // Pastries
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o5.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -111,8 +146,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 1.99m,
                     Description = "Freshly baked bagel, perfect with cream cheese.",
                     Stock = 40,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o6.png",
-                    CategoryId = 1 // Bread
+                    CategoryId = 1, // Bread
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o6.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -120,8 +162,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 6.50m,
                     Description = "Creamy cheesecake with a graham cracker crust.",
                     Stock = 12,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o7.png",
-                    CategoryId = 3 // Cakes
+                    CategoryId = 3, // Cakes
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o7.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -129,8 +178,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 3.25m,
                     Description = "Buttery pastry filled with fruit or custard.",
                     Stock = 18,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o8.png",
-                    CategoryId = 2 // Pastries
+                    CategoryId = 2, // Pastries
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o8.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -138,8 +194,15 @@ namespace EvilCorpBakery.API.Data
                     Price = 2.50m,
                     Description = "Classic cookies loaded with chocolate chips.",
                     Stock = 50,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o1.png",
-                    CategoryId = 4 // Cookies
+                    CategoryId = 4, // Cookies
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o1.png",
+                            IsMain = true
+                        }
+                    }
                 },
                 new Product
                 {
@@ -147,8 +210,20 @@ namespace EvilCorpBakery.API.Data
                     Price = 4.99m,
                     Description = "Moist banana bread with walnuts.",
                     Stock = 10,
-                    ImageUrl = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o2.png",
-                    CategoryId = 1 // Bread
+                    CategoryId = 1, // Bread
+                    Photos = new List<ProductPhoto>
+                    {
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o2.png",
+                            IsMain = true
+                        },
+                        new ProductPhoto
+                        {
+                            Url = "C:\\Users\\Michal\\Desktop\\EvilCorpBakery\\Products\\o2.png",
+                            IsMain = false
+                        }
+                    }
                 }
             };
             context.Products.AddRange(products);
