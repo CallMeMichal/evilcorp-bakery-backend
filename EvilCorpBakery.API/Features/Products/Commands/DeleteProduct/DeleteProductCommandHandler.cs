@@ -1,5 +1,4 @@
 ﻿using EvilCorpBakery.API.Data;
-using EvilCorpBakery.API.Features.Products.CreateProduct;
 using EvilCorpBakery.API.Middleware.Exceptions;
 using MediatR;
 
@@ -17,7 +16,7 @@ namespace EvilCorpBakery.API.Features.Products.Command.DeleteProduct
 
         public async Task<int> Handle(DeleteProductCommand request, CancellationToken cancellationToken)
         {
-            var product = await _context.Products.FindAsync(new object[] { request.Id }, cancellationToken);
+            var product = await _context.Products.FindAsync(request.Id, cancellationToken);
 
             if (product == null)
             {

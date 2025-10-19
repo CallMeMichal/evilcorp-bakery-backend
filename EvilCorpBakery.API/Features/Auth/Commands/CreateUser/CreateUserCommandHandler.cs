@@ -1,7 +1,6 @@
 ﻿using EvilCorpBakery.API.Data;
 using EvilCorpBakery.API.Data.Entities;
 using EvilCorpBakery.API.Extensions;
-using EvilCorpBakery.API.Features.Auth.LoginUser;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,7 +15,7 @@ namespace EvilCorpBakery.API.Features.Auth.Command.CreateUser
             _context = context;
         }
 
-        async Task<bool> IRequestHandler<CreateUserCommand, bool>.Handle(CreateUserCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var existingUser = await _context.Users
                 .FirstOrDefaultAsync(x => x.Email == request.Email, cancellationToken);

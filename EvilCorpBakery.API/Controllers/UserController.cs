@@ -1,10 +1,11 @@
-﻿using EvilCorpBakery.API.Features.Auth.GetUserJoinDate;
-using EvilCorpBakery.API.Features.User.UpdateUser;
+﻿using EvilCorpBakery.API.Features.Auth.Queries.GetUserJoinDate;
+using EvilCorpBakery.API.Features.User.Command.DeleteUser;
+using EvilCorpBakery.API.Features.User.Command.UpdateUser;
+using EvilCorpBakery.API.Features.User.Queries.GetUsers;
 using EvilCorpBakery.API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace EvilCorpBakery.API.Controllers
 {
@@ -32,7 +33,7 @@ namespace EvilCorpBakery.API.Controllers
         [HttpGet("all")]
         public async Task<IActionResult> GetUsers()
         {
-            var commmand = new Features.User.GetUsers.GetUsersQuery();
+            var commmand = new GetUsersQuery();
             var result = await _sender.Send(commmand);
             return Ok(result);
         }
@@ -41,7 +42,7 @@ namespace EvilCorpBakery.API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser([FromRoute] int id)
         {
-            var command = new Features.User.DeleteUser.DeleteUserCommand(id);
+            var command = new DeleteUserCommand(id);
             var result = await _sender.Send(command);
             return Ok(result);
         }

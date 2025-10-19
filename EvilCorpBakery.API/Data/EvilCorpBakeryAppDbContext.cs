@@ -21,6 +21,7 @@ namespace EvilCorpBakery.API.Data
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            
             // ========================================
             // USER RELATIONSHIPS
             // ========================================

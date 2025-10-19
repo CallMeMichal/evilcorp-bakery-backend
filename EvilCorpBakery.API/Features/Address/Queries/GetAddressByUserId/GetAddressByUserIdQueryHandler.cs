@@ -3,7 +3,7 @@ using EvilCorpBakery.API.Models.DTO;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace EvilCorpBakery.API.Features.Address.GetAddressByUserId
+namespace EvilCorpBakery.API.Features.Address.Queries.GetAddressByUserId
 {
     public class GetAddressByUserIdQueryHandler : IRequestHandler<GetAddressByUserIdQuery, List<AddressDTO>>
     {

@@ -1,5 +1,4 @@
-﻿using EvilCorpBakery.API.Features.Address.GetAddressByUserId;
-using EvilCorpBakery.API.Features.Orders.GetOrders;
+﻿using EvilCorpBakery.API.Features.Address.Queries.GetAddressByUserId;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
