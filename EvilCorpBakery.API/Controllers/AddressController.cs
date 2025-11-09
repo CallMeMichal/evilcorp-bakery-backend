@@ -39,7 +39,7 @@ namespace EvilCorpBakery.API.Controllers
                     State = command.State,
                     ZipCode = command.ZipCode,
                     Country = command.Country
-                }
+                } test
             }*/
 // obsluzyc
             var result = await _sender.Send(request);
