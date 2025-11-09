@@ -1,4 +1,6 @@
-﻿using EvilCorpBakery.API.Features.Address.Queries.GetAddressByUserId;
+﻿using EvilCorpBakery.API.Features.Address.Commands;
+using EvilCorpBakery.API.Features.Address.Queries.GetAddressByUserId;
+using EvilCorpBakery.API.Models.DTO;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -22,5 +24,27 @@ namespace EvilCorpBakery.API.Controllers
 
             return Ok(result);
         }
+
+
+        [HttpPost("create")]
+        public async Task<IActionResult> CreateAddress([FromBody] AddressDTO request)
+        {
+/*            CreateAddressCommand command = new CreateAddressCommand()
+            {
+                address = new AddressDTO
+                {
+                    UserId = command.UserId,
+                    Street = command.Street,
+                    City = command.City,
+                    State = command.State,
+                    ZipCode = command.ZipCode,
+                    Country = command.Country
+                }
+            }*/
+// obsluzyc
+            var result = await _sender.Send(request);
+            return Ok(result);
+        }
+
     }
 }
