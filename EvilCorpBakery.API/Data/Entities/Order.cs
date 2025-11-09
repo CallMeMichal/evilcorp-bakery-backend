@@ -7,7 +7,7 @@
         public int UserId { get; set; }
         public virtual User User { get; set; } = null!;
 
-        public int AddressId { get; set; }
+        public int? AddressId { get; set; }
         public virtual Address Address { get; set; } = null!;
 
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();

@@ -2,7 +2,7 @@
 {
     public class SelectedAddressDomain
     {
-        public int Id { get; set; }
+        public int? Id { get; set; }
         public string? Label { get; set; }
         public string? Street { get; set; }
         public string? PostalCode { get; set; }
